@@ -1,0 +1,44 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    {% for post in object_list %}
+
+        <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" style="max-height: 35px; max-width: 35px;">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{% url 'profile' %}">{{ post.author }}</a>
+              <small class="text-muted">{{ post.date_posted.day }}.{{ post.date_posted.month }}.{{ post.date_posted.year }}</small>
+            </div>
+            <h2><a class="article-title" href="{% url 'post-detail' post.pk %}">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.content }}</p>
+          </div>
+        </article>
+    {% endfor %}
+
+    <!-- Pagination template for django -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1"><button class="btn btn-outline-info">First</button></a>
+                {% if page_obj.previous_page_number > 1%}
+                    <a href="?page={{ page_obj.previous_page_number }}"><button class="btn btn-outline-info">{{ page_obj.previous_page_number }}</button></a>
+                {% endif %}
+            {% endif %}
+            <span class="current">
+                <button class="btn btn-outline-info" style="background: blue; opacity: 0.5" type="button">{{ page_obj.number }}</button>
+            </span>
+            {% if page_obj.has_next %}
+                {% if page_obj.next_page_number != page_obj.paginator.num_pages %}
+                    <a href="?page={{ page_obj.next_page_number }}"><button class="btn btn-outline-info">{{ page_obj.next_page_number }}</button></a>
+                {% endif %}
+                <a href="?page={{ page_obj.paginator.num_pages }}"><button class="btn btn-outline-info">Last</button></a>
+            {% endif %}
+        </span>
+    </div>
+
+    <script type="text/javascript">
+    document.getElementById("postCreateButton").onclick = function () {
+        location.href = "{% url 'post-create' %}";
+    };
+    </script>
+{% endblock content %}

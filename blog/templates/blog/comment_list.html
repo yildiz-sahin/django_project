@@ -1,0 +1,10 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    {% for comment in object_list %}
+        <article class="media content-section">
+          <div class="media-body">
+            <p class="article-content">{{ comment.comment }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
