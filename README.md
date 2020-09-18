@@ -1,2 +1,2 @@
 # blog-django
-Blog Web Site createf by using Django Framework in Python
+Blog Web Site created by using Django Framework in Python
